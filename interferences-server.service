@@ -1,0 +1,16 @@
+[Unit]
+Description=Interferences Server
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=exec
+User=interferences
+ExecStart=/usr/bin/cvlc --loop ${FILE_PATH} --sout="#gather:rtp{sdp=rtsp://:${PORT}/stream}" --network-caching=1500 --sout-all --sout-keep
+WorkingDirectory=/home/interferences
+EnvironmentFile=/home/interferences/interferences/.env
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

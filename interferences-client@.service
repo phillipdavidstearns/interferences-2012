@@ -1,0 +1,16 @@
+[Unit]
+Description=Interferences Client
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=exec
+User=interferences
+ExecStart=/usr/bin/cvlc --no-osd --no-autoscale --deinterlace=1 --grayscale --play-and-exit --one-instance --align=%i rtsp://${HOST}:${PORT}/stream
+WorkingDirectory=/home/interferences
+EnvironmentFile=/home/interferences/interferences/.env
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
